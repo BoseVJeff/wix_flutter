@@ -14,6 +14,11 @@ build-sln-exe:
 	flutter build windows --release --split-debug-info=build/app/outputs/symbols/windows
 
 build-vs-exe: import-vs-2022
-	msbuild ./build/windows/wix_flutter.sln
+	msbuild ./build/windows/wix_flutter.sln -property:Configuration=Release -property:Platform=x64
+
+build-vs-debug-exe: import-vs-2022
+	msbuild ./build/windows/wix_flutter.sln -property:Configuration=Debug -property:Platform=x64
 
 build-exe: build-sln-exe build-vs-exe
+
+build-debug-exe: build-sln-exe build-vs-debug-exe
