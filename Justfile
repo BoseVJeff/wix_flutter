@@ -74,7 +74,7 @@ build-aab:
 # Flutter Web build commands
 
 
-# Build web release
+# Build web release with CanvasKit renderer
 
 # Defaulting to canvaskit here for compatiblity and consistency with other platforms.
 
@@ -89,6 +89,12 @@ build-aab:
 
 build-web:
 	flutter build web --release --web-renderer=canvaskit --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2
+
+# Build web release with HTML renderer
+# All settings are otherwise identical to `build-web`
+# Results in the smallest overall bundle size as the CanvasKit renderer is omitted here
+build-html-web:
+	flutter build web --release --web-renderer=html --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2
 
 # Build web debug build
 
