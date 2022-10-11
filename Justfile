@@ -12,6 +12,33 @@ clean:
 rebuild: clean
 	flutter pub get
 
+# Clean android platform files
+clean-android:
+	rm -r .\android\
+
+# Clean windows platform files
+clean-windows:
+	rm -r .\windows\
+# Clean Web platform files
+clean-web:
+	rm -r .\web\
+
+# Regenerate Android platform files
+regen-android: clean-android
+	flutter create . --platforms=android
+
+# Regenerate Windows platform files
+regen-windows: clean-windows
+	flutter create . --platforms=windows
+
+# Regenerate Web files
+regen-web: clean-web
+	flutter create . --platforms=web
+
+# Regenerate all platform files
+regen-all: clean-android clean-windows clean-web
+	flutter create . --platforms=android,windows,web
+
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -41,14 +68,19 @@ build-vs-debug-exe: import-vs-2022
 
 # Build .exe for release
 build-exe: build-sln-exe build-vs-exe
+	echo ".\build\windows\runner\Release\"
 
 # Build .exe for debug
 build-debug-exe: build-sln-debug-exe build-vs-debug-exe
+	echo ".\build\windows\runner\Debug\"
 
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 # Android build commands
+# Currently, upgrading AGP seems to require Android Studio GUI
+# Reccomend upgrading AGP to the latest version (ignore all other suggestions) and change `jdk7` to `jdk8` in ./android/app/build.gradle to avoid all warnings
+# JDK upgrade taken from https://stackoverflow.com/a/71186533
 
 # Build release APK
 # Choosing to split per-abi to keep size to a minimum
