@@ -36,8 +36,15 @@ regen-web: clean-web
 	flutter create . --platforms=web
 
 # Regenerate all platform files
-regen-all: clean-android clean-windows clean-web
+regen-all-platforms: clean-android clean-windows clean-web
 	flutter create . --platforms=android,windows,web
+
+# Clean and rebuild Dart codegen (json_serializable, freezed, etc using build_runner)
+regen-dart:
+	flutter pub run build_runner build --delete-conflicting-outputs
+
+# Clean and regenerate all generated files in the project
+regen-all: regen-all-platforms rebuild regen-dart
 
 #--------------------------------------------------------------------------------
 
@@ -78,7 +85,7 @@ build-debug-exe: build-sln-debug-exe build-vs-debug-exe
 
 #--------------------------------------------------------------------------------
 # Android build commands
-# Currently, upgrading AGP seems to require Android Studio GUI
+# Currently, upgrading AGP seems to require Android Studio GUI . This is true for android project setup in general.
 # Reccomend upgrading AGP to the latest version (ignore all other suggestions) and change `jdk7` to `jdk8` in ./android/app/build.gradle to avoid all warnings
 # JDK upgrade taken from https://stackoverflow.com/a/71186533
 
