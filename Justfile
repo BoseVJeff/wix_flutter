@@ -2,7 +2,22 @@
 set shell := ["pwsh.exe", "-c"]
 
 #--------------------------------------------------------------------------------
+#
+#   __ _       _   _
+#  / _| |     | | | |
+# | |_| |_   _| |_| |_ ___ _ __
+# |  _| | | | | __| __/ _ \ '__|
+# | | | | |_| | |_| ||  __/ |
+# |_| |_|\__,_|\__|\__\___|_|
+#
+# Art from https://ascii.co.uk/art/Flutter
+
+#--------------------------------------------------------------------------------
 # General Flutter Tools
+
+# List all devices detetced by flutter
+show-devices:
+	flutter devices
 
 # Use to clean and delete most generated code and files
 clean:
@@ -48,6 +63,16 @@ regen-all: regen-all-platforms rebuild regen-dart
 
 #--------------------------------------------------------------------------------
 
+#           _           _
+#          (_)         | |
+# __      ___ _ __   __| | _____      _____
+# \ \ /\ / / | '_ \ / _` |/ _ \ \ /\ / / __|
+#  \ V  V /| | | | | (_| | (_) \ V  V /\__ \
+#   \_/\_/ |_|_| |_|\__,_|\___/ \_/\_/ |___/
+#
+#
+# Art from https://ascii.co.uk/art/windows
+
 #--------------------------------------------------------------------------------
 # Windows build commands
 # These are assumend to run on a Windows platform
@@ -83,6 +108,15 @@ build-debug-exe: build-sln-debug-exe build-vs-debug-exe
 
 #--------------------------------------------------------------------------------
 
+#                  _           _     _
+#                 | |         (_)   | |
+#   __ _ _ __   __| |_ __ ___  _  __| |
+#  / _` | '_ \ / _` | '__/ _ \| |/ _` |
+# | (_| | | | | (_| | | | (_) | | (_| |
+#  \__,_|_| |_|\__,_|_|  \___/|_|\__,_|
+#
+# Art from https://ascii.co.uk/art/android
+
 #--------------------------------------------------------------------------------
 # Android build commands
 # Currently, upgrading AGP seems to require Android Studio GUI . This is true for android project setup in general.
@@ -108,6 +142,15 @@ build-aab:
 	flutter build aab
 
 #--------------------------------------------------------------------------------
+
+#               _
+#              | |
+# __      _____| |__
+# \ \ /\ / / _ \ '_ \
+#  \ V  V /  __/ |_) |
+#   \_/\_/ \___|_.__/
+#
+# Art from https://ascii.co.uk/art/web
 
 #--------------------------------------------------------------------------------
 # Flutter Web build commands
