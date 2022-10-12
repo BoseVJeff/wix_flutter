@@ -84,6 +84,7 @@ regen-all: regen-all-platforms rebuild regen-dart
 
 # Use this to import VS 2022 into the context. Exposes msbuild, etc to allow VS project automation
 # Update this for different versions of Visual Studio
+# Donot use this as a task dependency as context is lost between steps. USE FOR TESTING ONLY
 import-vs-2022:
 	Import-Module '{{VsDevShellDllPath}}' && Enter-VsDevShell 05870f35
 
