@@ -45,3 +45,6 @@ app.*.map.json
 
 # Dart CodeGen related
 *.g.dart
+
+# Other private stuff
+.env

@@ -1,6 +1,11 @@
 # use PowerShell Core instead of sh:
 set shell := ["pwsh.exe", "-c"]
 
+VsDevShellDllPath:="C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/Tools/Microsoft.VisualStudio.DevShell.dll"
+
+default:
+	just --list
+
 #--------------------------------------------------------------------------------
 #
 #   __ _       _   _
@@ -80,7 +85,7 @@ regen-all: regen-all-platforms rebuild regen-dart
 # Use this to import VS 2022 into the context. Exposes msbuild, etc to allow VS project automation
 # Update this for different versions of Visual Studio
 import-vs-2022:
-	&{Import-Module 'C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/Tools/Microsoft.VisualStudio.DevShell.dll'; Enter-VsDevShell 05870f35}
+	Import-Module '{{VsDevShellDllPath}}' && Enter-VsDevShell 05870f35
 
 # Build the release version of the app project (.sln) file from the Flutter CLI
 build-sln-exe:
@@ -91,12 +96,14 @@ build-sln-debug-exe:
 	flutter build windows --debug
 
 # Build the executable of the release version of the app
-build-vs-exe: import-vs-2022
-	msbuild ./build/windows/wix_flutter.sln -property:Configuration=Release -property:Platform=x64
+# Not using `import-vs-2022` here as context/imports are lost inbetween steps
+build-vs-exe:
+	Import-Module '{{VsDevShellDllPath}}' && Enter-VsDevShell 05870f35 -SkipAutomaticLocation &&  msbuild ./build/windows/wix_flutter.sln -property:Configuration=Release -property:Platform=x64
 
 # Build the executable of the debug version of the app
+# Not using `import-vs-2022` here as context/imports are lost inbetween steps
 build-vs-debug-exe: import-vs-2022
-	msbuild ./build/windows/wix_flutter.sln -property:Configuration=Debug -property:Platform=x64
+	Import-Module '{{VsDevShellDllPath}}' && Enter-VsDevShell 05870f35 -SkipAutomaticLocation &&  msbuild ./build/windows/wix_flutter.sln -property:Configuration=Debug -property:Platform=x64
 
 # Build .exe for release
 build-exe: build-sln-exe build-vs-exe
@@ -195,3 +202,34 @@ build-debug-web:
 	flutter build web --release --web-renderer=auto --csp --source-maps --pwa-strategy=auto --dart2js-optimization=O0
 
 #--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+#
+#               a8888b.
+#              d888888b.
+#              8P"YP"Y88
+#              8|o||o|88
+#              8'    .88
+#              8`._.' Y8.
+#             d/      `8b.
+#            dP   .    Y8b.
+#           d8:'  "  `::88b
+#          d8"         'Y88b
+#         :8P    '      :888
+#          8a.   :     _a88P
+#        ._/"Yaa_:   .| 88P|
+#   jgs  \    YP"    `| 8P  `.
+#   a:f  /     \.___.d|    .'
+#        `--..__)8888P`._.'
+#
+# Art from https://ascii.co.uk/art/linux
+
+#--------------------------------------------------------------------------------
+# Linux Build Commands
+#
+# As mentioned earlier, all of these build instructions assume a Windows host. This remains true here.
+# WSL is used for this entire section.
+
+# Build release binary
+# By default, only x64 builds are generated but here arm64 is also included for completness' sake.
+# build-linux:
