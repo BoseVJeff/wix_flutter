@@ -46,5 +46,8 @@ app.*.map.json
 # Dart CodeGen related
 *.g.dart
 
+# Justfile temp stuff
+/buildbak
+
 # Other private stuff
 .env

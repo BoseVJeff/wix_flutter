@@ -235,3 +235,16 @@ build-debug-web:
 # By default, only x64 builds are generated but here arm64 is also included for completness' sake.
 build-linux:
 	./build.ps1
+
+#--------------------------------------------------------------------------------
+#
+# All Builds together
+
+build-all: build-linux
+	Copy-Item .\build\linux\ -Filter * -Destination ./buildbak -Recurse
+	just rebuild
+	just build-apk
+	just build-exe
+	just build-web
+	Copy-Item .\buildbak\ -Filter * -Destination .\build\linux\ -Recurse
+	rm -r .\buildbak\
