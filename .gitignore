@@ -48,6 +48,7 @@ app.*.map.json
 
 # Justfile temp stuff
 /buildbak
+/symbolsbak
 
 # Other private stuff
 .env

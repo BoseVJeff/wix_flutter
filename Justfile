@@ -90,7 +90,7 @@ import-vs-2022:
 
 # Build the release version of the app project (.sln) file from the Flutter CLI
 build-sln-exe:
-	flutter build windows --release --split-debug-info=build/app/outputs/symbols/windows
+	flutter build windows --release --split-debug-info=build/symbols/windows
 
 # Build the debug version of the app project (.sln) file from the Flutter CLI
 build-sln-debug-exe:
@@ -134,7 +134,7 @@ build-debug-exe: build-sln-debug-exe build-vs-debug-exe
 # Build release APK
 # Choosing to split per-abi to keep size to a minimum
 build-apk:
-	flutter build apk --release --split-debug-info=build/app/outputs/symbols/android --split-per-abi
+	flutter build apk --release --split-debug-info=build/symbols/android --split-per-abi
 
 # Build universal release APK
 # Is the full fat apk with universal support and debug info included
@@ -242,9 +242,12 @@ build-linux:
 
 build-all: build-linux
 	Copy-Item .\build\linux\ -Filter * -Destination ./buildbak -Recurse
+	Copy-Item .\build\symbols\linux -Filter * -Destination ./symbolsbak -Recurse
 	just rebuild
 	just build-apk
 	just build-exe
 	just build-web
 	Copy-Item .\buildbak\ -Filter * -Destination .\build\linux\ -Recurse
+	Copy-Item .\symbolsbak\ -Filter * -Destination .\build\symbols\linux\ -Recurse
 	rm -r .\buildbak\
+	rm -r .\symbolsbak\
