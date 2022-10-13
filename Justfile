@@ -103,7 +103,7 @@ build-vs-exe:
 
 # Build the executable of the debug version of the app
 # Not using `import-vs-2022` here as context/imports are lost inbetween steps
-build-vs-debug-exe: import-vs-2022
+build-vs-debug-exe:
 	Import-Module '{{VsDevShellDllPath}}' && Enter-VsDevShell 05870f35 -SkipAutomaticLocation &&  msbuild ./build/windows/wix_flutter.sln -property:Configuration=Debug -property:Platform=x64
 
 # Build .exe for release
