@@ -234,5 +234,4 @@ build-debug-web:
 # Build release binary
 # By default, only x64 builds are generated but here arm64 is also included for completness' sake.
 build-linux:
-	docker build --pull --rm -f "Dockerfile" -t wixflutter:latest "."
-	docker run --rm -v ${PWD}:/app --name wixflutterbuild wixflutter:latest bash ./app/build-linux.sh
+	./build.ps1
