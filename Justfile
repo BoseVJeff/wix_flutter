@@ -39,9 +39,14 @@ clean-android:
 # Clean windows platform files
 clean-windows:
 	rm -r .\windows\
+
 # Clean Web platform files
 clean-web:
 	rm -r .\web\
+
+# Clean Linux platform files
+clean-linux:
+	rm -r .\linux\
 
 # Regenerate Android platform files
 regen-android: clean-android
@@ -55,9 +60,13 @@ regen-windows: clean-windows
 regen-web: clean-web
 	flutter create . --platforms=web
 
+# Regenrate Linux platform files
+regen-linux: clean-linux
+	flutter create . --platforms=linux
+
 # Regenerate all platform files
 regen-all-platforms: clean-android clean-windows clean-web
-	flutter create . --platforms=android,windows,web
+	flutter create . --platforms=android,windows,web,linux
 
 # Clean and rebuild Dart codegen (json_serializable, freezed, etc using build_runner)
 regen-dart:
@@ -152,7 +161,7 @@ build-debug-apk:
 
 # Build release App Bundle
 build-aab:
-	flutter build aab
+	flutter build appbundle
 
 #--------------------------------------------------------------------------------
 
@@ -205,7 +214,7 @@ build-html-web:
 # See https://dart.dev/tools/dart-compile#js for more info
 
 build-debug-web:
-	flutter build web --release --web-renderer=auto --csp --source-maps --pwa-strategy=auto --dart2js-optimization=O0
+	flutter build web --release --web-renderer=auto --csp --source-maps --pwa-strategy=none --dart2js-optimization=O0
 
 #--------------------------------------------------------------------------------
 
@@ -234,12 +243,23 @@ build-debug-web:
 # Linux Build Commands
 #
 # As mentioned earlier, all of these build instructions assume a Windows host. This remains true here.
-# WSL is used for this entire section.
+# Docker is used for this entire section.
+# Assuming a Windows host leads to the following complications:
+# 1. All Flutter libraries are in their Windows variants. To get the Linux variants, `flutter clean && flutter pub get` needs to be run from inside the container itself. The `flutter clean` part results in all existing builds to be lost, so care must be taken to back them up if needed. Use the `build-all` recipie that takes care of these concerns if that is appropriate. Use it as a guidance if custom behaviour is needed.
+# 2. Having to run `flutter clean` at the start of each run results in lost builds. This makes it impossible for the Debug and Release builds of Linux to coexist. If for some reason that is desired, use the `build-both-linux` recipie instead.
 
 # Build release binary
 # By default, only x64 builds are generated but here arm64 is also included for completness' sake.
 build-linux:
 	./build.ps1
+
+# Build debug binary
+build-debug-linux:
+	./build-debug.ps1
+
+# Build debug and release togteher
+build-both-linux:
+	./build-debug-and-release.ps1
 
 #--------------------------------------------------------------------------------
 #
@@ -266,7 +286,11 @@ build-linux:
 #
 # All Builds together
 
+# Generate all release builds
+# Naming this as such to avoid accidently generating debug builds when not needed.
 build-all: build-linux
+	if(Test-Path .\buildbak\) {rm -r .\buildbak\}
+	if(Test-Path .\symbolsbak\) {rm -r .\symbolsbak\}
 	Copy-Item .\build\linux\ -Filter * -Destination ./buildbak -Recurse
 	Copy-Item .\build\symbols\linux -Filter * -Destination ./symbolsbak -Recurse
 	just rebuild
@@ -275,5 +299,32 @@ build-all: build-linux
 	just build-web
 	Copy-Item .\buildbak\ -Filter * -Destination .\build\linux\ -Recurse
 	Copy-Item .\symbolsbak\ -Filter * -Destination .\build\symbols\linux\ -Recurse
-	rm -r .\buildbak\
-	rm -r .\symbolsbak\
+	{rm -r .\buildbak\}
+	{rm -r .\symbolsbak\}
+
+# Generate all builds possible
+# This will generate over 9000(!) files...
+# Web rewrites the same folder for all variants. TODO: Copy individual builds to debug, release folders
+# The individual `rm` at the end are covered in barces to avoid accidental concats of the two commands that seems to occour for some reason.
+build-all-variants: build-both-linux
+	if(Test-Path .\buildbak\) {rm -r .\buildbak\}
+	if(Test-Path .\symbolsbak\) {rm -r .\symbolsbak\}
+	Copy-Item .\build\linux\ -Filter * -Destination ./buildbak -Recurse
+	Copy-Item .\build\symbols\linux -Filter * -Destination ./symbolsbak -Recurse
+	just rebuild
+	just build-apk
+	just build-fat-apk
+	just build-aab
+	just build-exe
+	just build-debug-exe
+	just build-web
+	just build-html-web
+	just build-debug-web
+	Copy-Item .\buildbak\ -Filter * -Destination .\build\linux\ -Recurse
+	Copy-Item .\symbolsbak\ -Filter * -Destination .\build\symbols\linux\ -Recurse
+	{rm -r .\buildbak\}
+	{rm -r .\symbolsbak\}
+
+# Benchmark
+benchmark:
+	Measure-Command {just regen-all && just build-all-variants | Out-Default}
