@@ -264,17 +264,24 @@ build-debug-web:
 # 1. All Flutter libraries are in their Windows variants. To get the Linux variants, `flutter clean && flutter pub get` needs to be run from inside the container itself. The `flutter clean` part results in all existing builds to be lost, so care must be taken to back them up if needed. Use the `build-all` recipie that takes care of these concerns if that is appropriate. Use it as a guidance if custom behaviour is needed.
 # 2. Having to run `flutter clean` at the start of each run results in lost builds. This makes it impossible for the Debug and Release builds of Linux to coexist. If for some reason that is desired, use the `build-both-linux` recipie instead.
 
+# Test if Docker is installed and running
+# Throws a halting error if Docker is not running
+test-docker:
+	try {docker --version} catch {error("Docker not found. Try installing Docker and try again.")}
+	docker ps
+	if($? -eq $false) { error("Error connecting to Docker daemon. Try reconnecting/restarting Docker") }
+
 # Build release binary
 # By default, only x64 builds are generated but here arm64 is also included for completness' sake.
-build-linux:
+build-linux: test-docker
 	./build.ps1
 
 # Build debug binary
-build-debug-linux:
+build-debug-linux: test-docker
 	./build-debug.ps1
 
 # Build debug and release togteher
-build-both-linux:
+build-both-linux: test-docker
 	./build-debug-and-release.ps1
 
 #--------------------------------------------------------------------------------
@@ -334,8 +341,11 @@ build-all-variants: build-both-linux
 	just build-exe
 	just build-debug-exe
 	just build-web
+	Copy-Item .\build\web\ -Filter * -Destination .\build\web_release -Recurse
 	just build-html-web
+	Copy-Item .\build\web\ -Filter * -Destination .\build\web_release_html -Recurse
 	just build-debug-web
+	Copy-Item .\build\web\ -Filter * -Destination .\build\web_debug -Recurse
 	Copy-Item .\buildbak\ -Filter * -Destination .\build\linux\ -Recurse
 	Copy-Item .\symbolsbak\ -Filter * -Destination .\build\symbols\linux\ -Recurse
 	{rm -r .\buildbak\}
