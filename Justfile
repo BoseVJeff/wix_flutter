@@ -27,6 +27,8 @@ show-devices:
 # Use to clean and delete most generated code and files
 clean:
 	flutter clean
+	{rm -r .\buildbak\}
+	{rm -r .\symbolsbak\}
 
 # Clean and regenerate code and files
 rebuild: clean
