@@ -40,11 +40,13 @@ jobs:
           flutter config --enable-web
           flutter pub get
 
-      - name: Build
+      - name: Import Just
       - uses: extractions/setup-just@v1
         with:
           just-version: 1.5.0 # optional semver specification, otherwise latest
-          run: just build-fp-web
+      
+      - name: Just build
+        run: just build-fp-web
 
 
       - name: Deploy
