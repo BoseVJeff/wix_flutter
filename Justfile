@@ -194,6 +194,12 @@ build-aab:
 build-web:
 	flutter build web --release --web-renderer=canvaskit --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2
 
+# Attempt to build a bundle which only makes first-party requests i.e. no external requests.
+# Canvaskit used here is the local variant that is generated but not used by default (for some reason)
+# This is currently a WIP, as a font request to https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf is made.
+build-fp-web:
+	flutter build web --release --web-renderer=canvaskit --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2 --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
+
 # Build web release with HTML renderer
 # All settings are otherwise identical to `build-web`
 # Results in the smallest overall bundle size as the CanvasKit renderer is omitted here
