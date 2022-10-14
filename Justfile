@@ -195,8 +195,16 @@ build-web:
 	flutter build web --release --web-renderer=canvaskit --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2
 
 # Attempt to build a bundle which only makes first-party requests i.e. no external requests.
-# Canvaskit used here is the local variant that is generated but not used by default (for some reason)
-# This is currently a WIP, as a font request to https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf is made.
+# Canvaskit used here is the local variant that is generated but not used by default (for some reason).
+# (Canvaskit URL strategy inspired by https://github.com/flutter/engine/pull/19822)
+# However, this does not prevent a font request to https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Me5WZLCzYlKw.ttf .
+# To avoid this, download a local copy of the font (defalut is Roboto-Regular) and add it to the fonts list in pubspec.yaml .
+# e.g. If the font is stored in `google_fonts` as `Roboto-Regular.ttf`, add this to the flutter section of the pubspec
+#   fonts:
+#     - family: Roboto
+#       fonts:
+#         - asset: google_fonts/Roboto-Regular.ttf
+# (Local font tip taken from https://github.com/flutter/flutter/issues/77580#issuecomment-1112333700)
 build-fp-web:
 	flutter build web --release --web-renderer=canvaskit --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2 --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
 
