@@ -148,4 +148,5 @@ Other changes:
 
 ## Potential Future Recipes
 
-Recipes to build Snap, AppImage, Flatpak, MSI, MSIX
+Recipes to build Snap, AppImage, Flatpak, MSI, MSIX, etc.
+Automatic builds using Github Actions ar something similar.
