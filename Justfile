@@ -233,7 +233,7 @@ build-debug-web:
 	flutter build web --release --web-renderer=auto --csp --source-maps --pwa-strategy=none --dart2js-optimization=O0
 
 build-gh-pages:
-	just build-fp-web '/wix-flutter/'
+	just build-fp-web '/wix_flutter/'
 	if(Test-Path .\docs\) {rm -r .\docs\}
 	Copy-Item ./build/web -Destination .\docs -Filter * -Recurse
 
