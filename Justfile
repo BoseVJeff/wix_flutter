@@ -208,7 +208,7 @@ build-web:
 #         - asset: google_fonts/Roboto-Regular.ttf
 # (Local font tip taken from https://github.com/flutter/flutter/issues/77580#issuecomment-1112333700)
 build-fp-web base-href='/':
-	flutter build web --release --base-href={{base-href}} --web-renderer=canvaskit --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2 --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
+	flutter build web --release --base-href={{base-href}} --web-renderer=canvaskit --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2 --dart-define=FLUTTER_WEB_CANVASKIT_URL={{base-href}}canvaskit/
 
 # Build web release with HTML renderer
 # All settings are otherwise identical to `build-web`
