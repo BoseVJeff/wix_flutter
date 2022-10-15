@@ -207,8 +207,8 @@ build-web:
 #       fonts:
 #         - asset: google_fonts/Roboto-Regular.ttf
 # (Local font tip taken from https://github.com/flutter/flutter/issues/77580#issuecomment-1112333700)
-build-fp-web:
-	flutter build web --release --web-renderer=canvaskit --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2 --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
+build-fp-web base-href='/':
+	flutter build web --release --base-href={{base-href}} --web-renderer=canvaskit --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2 --dart-define=FLUTTER_WEB_CANVASKIT_URL=/canvaskit/
 
 # Build web release with HTML renderer
 # All settings are otherwise identical to `build-web`
@@ -232,7 +232,8 @@ build-html-web:
 build-debug-web:
 	flutter build web --release --web-renderer=auto --csp --source-maps --pwa-strategy=none --dart2js-optimization=O0
 
-build-gh-pages: build-fp-web
+build-gh-pages:
+	just build-fp-web '/wix-flutter/'
 	if(Test-Path .\docs\) {rm -r .\docs\}
 	Copy-Item ./build/web -Destination .\docs -Filter * -Recurse
 
