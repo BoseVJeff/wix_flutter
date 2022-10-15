@@ -193,8 +193,8 @@ build-aab:
 # Setting optimization level to O2 as that is the highest reasonably safe level for most applications
 # See https://dart.dev/tools/dart-compile#js for more info
 
-build-web:
-	flutter build web --release --web-renderer=canvaskit --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2
+build-web base-href='/':
+	flutter build web --release --base-href={{base-href}} --web-renderer=canvaskit --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2
 
 # Attempt to build a bundle which only makes first-party requests i.e. no external requests.
 # Canvaskit used here is the local variant that is generated but not used by default (for some reason).
@@ -213,8 +213,8 @@ build-fp-web base-href='/':
 # Build web release with HTML renderer
 # All settings are otherwise identical to `build-web`
 # Results in the smallest overall bundle size as the CanvasKit renderer is omitted here
-build-html-web:
-	flutter build web --release --web-renderer=html --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2
+build-html-web base-href='/':
+	flutter build web --releas --base-href={{base-href}}e --web-renderer=html --csp --no-source-maps --pwa-strategy=offline-first --dart2js-optimization=O2
 
 # Build web debug build
 
@@ -229,8 +229,8 @@ build-html-web:
 # Setting optimization level to O0 to speed up build-times for faster debugging
 # See https://dart.dev/tools/dart-compile#js for more info
 
-build-debug-web:
-	flutter build web --release --web-renderer=auto --csp --source-maps --pwa-strategy=none --dart2js-optimization=O0
+build-debug-web base-href='/':
+	flutter build web --debug --base-href={{base-href}} --web-renderer=auto --csp --source-maps --pwa-strategy=none --dart2js-optimization=O0
 
 build-gh-pages:
 	just build-fp-web '/wix_flutter/'
