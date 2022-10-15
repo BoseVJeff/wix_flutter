@@ -16968,7 +16968,7 @@ $iYU:1}
 A.fm.prototype={
 gxP(){var s=this.a
 s=s==null?null:A.aw(s.canvasKitBaseUrl)
-return s==null?"/canvaskit/":s},
+return s==null?"/wix_flutter/canvaskit/":s},
 gxQ(){var s=this.a
 s=s==null?null:A.cD(s.canvasKitForceCpuOnly)
 return s===!0},
