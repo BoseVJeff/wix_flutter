@@ -130,6 +130,12 @@ build-exe: build-sln-exe build-vs-exe
 build-debug-exe: build-sln-debug-exe build-vs-debug-exe
 	echo ".\build\windows\runner\Debug\"
 
+# Build release
+# Mainly meant for use in Github Actions
+# Depends on 7Zip being available in PATH, which is true for Github-hosted Windows runners.
+build-release-exe: build-exe
+	7z a windows.zip ./build/windows/runner/Release/*
+
 #--------------------------------------------------------------------------------
 
 #                  _           _     _

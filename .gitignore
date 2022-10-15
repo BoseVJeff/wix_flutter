@@ -55,3 +55,6 @@ app.*.map.json
 
 # Other private stuff
 .env
+
+# Artifacts generated from testing build recipes meant for Github Actions
+*.zip
