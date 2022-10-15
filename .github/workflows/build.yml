@@ -1,0 +1,69 @@
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+name: Upload Release Asset
+
+jobs:
+  build:
+    name: Upload Release Asset
+    runs-on: windows-latest
+    steps:
+      - name: Setup just
+        # You may pin to the exact commit or the version.
+        # uses: extractions/setup-just@95b912dc5d3ed106a72907f2f9b91e76d60bdb76
+        uses: extractions/setup-just@v1
+        with:
+          # A valid semver specifier of the just version to install
+          just-version: 1.5.0
+        
+      - name: Setup Flutter SDK
+        # You may pin to the exact commit or the version.
+        # uses: flutter-actions/setup-flutter@74fc21b209e70873f3caff52c4caf25d862f2a39
+        uses: flutter-actions/setup-flutter@v2.2
+        with:
+          # The version to install: Default: 3.0.2
+          version: 3.3.4
+          # The version to install. Default: stable
+          channel: stable
+          # Cache the installed Flutter SDK. Default: false
+          cache: true
+          # An explicit key for restoring and saving the Flutter SDK to/from cache
+          cache-key: flutter-3.3.4
+      - name: Download development binaries
+        run: flutter doctor
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+      #- name: Build project # This would actually build your project, using zip for an example artifact
+      #  run: |
+      #    zip --junk-paths my-artifact README.md
+      
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+          
+      - name: Build Windows release
+        run: |
+          just build-exe
+          7z a windows.zip ./build/windows/runner/Release/*
+          
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./windows.zip
+          asset_name: wix_flutter-${{ github.ref }}.zip
+          asset_content_type: application/zip
