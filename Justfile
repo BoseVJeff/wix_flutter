@@ -232,6 +232,10 @@ build-html-web:
 build-debug-web:
 	flutter build web --release --web-renderer=auto --csp --source-maps --pwa-strategy=none --dart2js-optimization=O0
 
+build-gh-pages: build-fp-web
+	if(Test-Path .\docs\) {rm -r .\docs\}
+	Copy-Item ./build/web -Destination .\docs -Filter * -Recurse
+
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
