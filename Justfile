@@ -1,5 +1,5 @@
-# use PowerShell Core instead of sh:
-set shell := ["pwsh.exe", "-c"]
+# use PowerShell Core instead of sh on Windows:
+set windows-shell := ["pwsh.exe", "-c"]
 
 VsDevShellDllPath:="C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/Tools/Microsoft.VisualStudio.DevShell.dll"
 
