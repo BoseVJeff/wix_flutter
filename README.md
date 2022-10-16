@@ -1,6 +1,6 @@
 # wix_flutter
 
-A Flutter project to test build automation with [Just](https://just.systems/) ([Github](https://github.com/casey/just)).
+A Flutter project to test build automation with [Just](https://just.systems/) ([Github](https://github.com/casey/just)) both locally and on a remote task runner like GitHub actions.
 
 ## Requirements
 
