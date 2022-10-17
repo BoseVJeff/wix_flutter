@@ -5,7 +5,7 @@ FROM ubuntu:latest
 # Taken from https://stackoverflow.com/a/50052151
 # FROM snapcore/snapcraft:stable
 
-RUN apt-get update && apt-get install -y bash curl file git unzip xz-utils zip clang cmake ninja-build pkg-config libgtk-3-dev
+RUN apt-get update && apt-get install -y bash curl file git unzip xz-utils zip clang cmake ninja-build pkg-config libgtk-3-dev zip
 
 # Use if building Flatpak
 # Taken from https://docs.flatpak.org/en/latest/first-build.html and other links in it

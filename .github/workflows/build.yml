@@ -106,7 +106,8 @@ jobs:
       - name: Build Linux release
         run: |
           bash build-linux.sh
-          zip linux -r build/linux/x64/release/bundle
+          cd build/linux/x64/release/bundle
+          zip linux.zip . -r
 
       - name: Build Android releases
         run: |
@@ -120,7 +121,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.build-exe.outputs.release-url }} # This pulls from the CREATE RELEASE step above in build-exe, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: linux.zip
+          asset_path: build/linux/x64/release/bundle/linux.zip
           asset_name: win_flutter_linux.zip
           asset_content_type: application/zip
 
