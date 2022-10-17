@@ -158,7 +158,7 @@ jobs:
       - name: Build Linux release
         run: |
           bash build-linux.sh
-          zip linux -r ./build/linux/x64/bundle/
+          zip linux -r build/linux/x64/release/bundle/
 
       - name: Build Android releases
         run: |
