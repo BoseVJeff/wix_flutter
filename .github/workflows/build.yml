@@ -56,7 +56,7 @@ jobs:
 
       - name: Build Windows release
         run: |
-          just build-exe
+          just build-gh-exe
           7z a windows.zip ./build/windows/runner/Release/*
 
       # - name: Build Android releases

@@ -117,6 +117,11 @@ build-sln-debug-exe:
 build-vs-exe:
 	Import-Module '{{VsDevShellDllPath}}' && Enter-VsDevShell 05870f35 -SkipAutomaticLocation &&  msbuild ./build/windows/wix_flutter.sln -property:Configuration=Release -property:Platform=x64
 
+# Used in GitHub actions since the import seems unecessary
+build-gh-vs-exe:
+	Get-Command msbuild
+	msbuild ./build/windows/wix_flutter.sln -property:Configuration=Release -property:Platform=x64
+
 # Build the executable of the debug version of the app
 # Not using `import-vs-2022` here as context/imports are lost inbetween steps
 build-vs-debug-exe:
@@ -125,6 +130,10 @@ build-vs-debug-exe:
 # Build .exe for release
 build-exe: build-sln-exe build-vs-exe
 	echo ".\build\windows\runner\Release\"
+
+# Maeant mainly for GitHub Actions
+build-gh-exe: build-sln-exe
+	Get-Command msbuild
 
 # Build .exe for debug
 build-debug-exe: build-sln-debug-exe build-vs-debug-exe
