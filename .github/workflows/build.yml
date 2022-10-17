@@ -146,7 +146,9 @@ jobs:
           # An explicit key for restoring and saving the Flutter SDK to/from cache
           cache-key: flutter-3.3.4
       - name: Setup Linux Build Envirionment
-        run: RUN apt-get update && apt-get install -y bash curl file git unzip xz-utils zip clang cmake ninja-build pkg-config libgtk-3-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bash curl file git unzip xz-utils zip clang cmake ninja-build pkg-config libgtk-3-dev
       - name: Download development binaries
         run: flutter doctor -v
 
