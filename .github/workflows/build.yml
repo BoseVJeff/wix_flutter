@@ -155,15 +155,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Android releases
-        run: |
-          just build-apk
-          just build-fat-apk
-
       - name: Build Linux release
         run: |
           bash build-linux.sh
           zip linux -r ./build/linux
+
+      - name: Build Android releases
+        run: |
+          just build-apk
+          just build-fat-apk
 
       - name: Upload Linux Release Asset
         id: upload-linux-release-asset
