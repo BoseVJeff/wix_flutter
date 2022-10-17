@@ -105,10 +105,12 @@ import-vs-2022:
 	Import-Module '{{VsDevShellDllPath}}' && Enter-VsDevShell 05870f35
 
 # Build the release version of the app project (.sln) file from the Flutter CLI
+# Apparently this builds the .exe directly on GitHub hosted runners.
 build-sln-exe:
 	flutter build windows --release --split-debug-info=build/symbols/windows
 
 # Build the debug version of the app project (.sln) file from the Flutter CLI
+# Apparently this builds the .exe directly on GitHub hosted runners.
 build-sln-debug-exe:
 	flutter build windows --debug
 
@@ -133,7 +135,6 @@ build-exe: build-sln-exe build-vs-exe
 
 # Maeant mainly for GitHub Actions
 build-gh-exe: build-sln-exe
-	Get-Command msbuild
 
 # Build .exe for debug
 build-debug-exe: build-sln-debug-exe build-vs-debug-exe
