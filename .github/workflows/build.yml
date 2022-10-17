@@ -168,7 +168,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Upload arm64-v8a Android Release Asset
-        id: upload-android-release-asset
+        id: upload-arm64-android-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -179,7 +179,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Upload armeabi-v7a Android Release Asset
-        id: upload-android-release-asset
+        id: upload-armeabi-android-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -190,7 +190,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Upload x86_64 Android Release Asset
-        id: upload-android-release-asset
+        id: upload-x86_64android-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
