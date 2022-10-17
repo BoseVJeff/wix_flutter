@@ -156,6 +156,22 @@ jobs:
           just build-apk
           just build-fat-apk
 
+      - name: Build Linux release
+        run: |
+          bash build-linux.sh
+          zip linux -r ./build/linux
+
+      - name: Upload Linux Release Asset
+        id: upload-linux-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.build-exe.outputs.release-url }} # This pulls from the CREATE RELEASE step above in build-exe, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: linux.zip
+          asset_name: linux.zip
+          asset_content_type: application/zip
+
       - name: Upload Universal Android Release Asset
         id: upload-android-release-asset
         uses: actions/upload-release-asset@v1
