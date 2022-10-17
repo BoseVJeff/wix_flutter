@@ -39,9 +39,6 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
-      #- name: Build project # This would actually build your project, using zip for an example artifact
-      #  run: |
-      #    zip --junk-paths my-artifact README.md
 
       - name: Create Release
         id: create_release
@@ -59,11 +56,6 @@ jobs:
           just build-gh-exe
           7z a windows.zip ./build/windows/runner/Release/*
 
-      # - name: Build Android releases
-      #   run: |
-      #     just build-apk
-      #     just build-fat-apk
-
       - name: Upload Windows Release Asset
         id: upload-windows-release-asset
         uses: actions/upload-release-asset@v1
@@ -74,50 +66,6 @@ jobs:
           asset_path: ./windows.zip
           asset_name: wix_flutter.zip
           asset_content_type: application/zip
-
-      # - name: Upload arm64-v8a Android Release Asset
-      #   id: upload-arm64-v8a-release-asset
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-      #     asset_path: ./build/outputs/flutter-apk/app-arm64-v8a-release.apk
-      #     asset_name: wix_flutter-arm64-v8a.apk
-      #     asset_content_type: application/zip
-
-      # - name: Upload armeabi-v7a Android Release Asset
-      #   id: upload-armeabi-v7a-release-asset
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-      #     asset_path: ./build/outputs/flutter-apk/app-armeabi-v7a-release.apk
-      #     asset_name: wix_flutter-armeabi-v7a.apk
-      #     asset_content_type: application/zip
-
-      # - name: Upload x86_64 Android Release Asset
-      #   id: upload-x-86-64-release-asset
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-      #     asset_path: ./build/outputs/flutter-apk/app-x86_64-release.apk
-      #     asset_name: wix_flutter-x86_64.apk
-      #     asset_content_type: application/zip
-
-      # - name: Upload Universal Android Release Asset
-      #   id: upload-android-release-asset
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-      #     asset_path: ./build/outputs/flutter-apk/app-release.apk
-      #     asset_name: wix_flutter.apk
-      #     asset_content_type: application/zip
 
   build-apk:
     name: Build and Upload Android and Linux Release Assets
