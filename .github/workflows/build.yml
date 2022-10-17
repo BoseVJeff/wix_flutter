@@ -166,3 +166,36 @@ jobs:
           asset_path: ./build/app/outputs/flutter-apk/app-release.apk
           asset_name: wix_flutter.apk
           asset_content_type: application/zip
+
+      - name: Upload arm64-v8a Android Release Asset
+        id: upload-android-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.build-exe.outputs.release-url }} # This pulls from the CREATE RELEASE step above in build-exe, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+          asset_name: wix_flutter-arm64.apk
+          asset_content_type: application/zip
+
+      - name: Upload armeabi-v7a Android Release Asset
+        id: upload-android-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.build-exe.outputs.release-url }} # This pulls from the CREATE RELEASE step above in build-exe, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+          asset_name: wix_flutter-armeabi.apk
+          asset_content_type: application/zip
+
+      - name: Upload x86_64 Android Release Asset
+        id: upload-android-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.build-exe.outputs.release-url }} # This pulls from the CREATE RELEASE step above in build-exe, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./build/app/outputs/flutter-apk/app-x86_64-release.apk
+          asset_name: wix_flutter-x86_64.apk
+          asset_content_type: application/zip
