@@ -298,7 +298,7 @@ test-docker:
 
 # Build release binary
 # By default, only x64 builds are generated but here arm64 is also included for completness' sake.
-build-linux-docker: test-docker
+build-linux: test-docker
 	./build.ps1
 
 # Build debug binary
@@ -341,7 +341,7 @@ build-linux-native:
 
 # Generate all release builds
 # Naming this as such to avoid accidently generating debug builds when not needed.
-build-all: build-linux-docker
+build-all: build-linux
 	if(Test-Path .\buildbak\) {rm -r .\buildbak\}
 	if(Test-Path .\symbolsbak\) {rm -r .\symbolsbak\}
 	Copy-Item .\build\linux\ -Filter * -Destination ./buildbak -Recurse
