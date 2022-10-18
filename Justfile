@@ -314,6 +314,20 @@ build-both-linux: test-docker
 build-linux-native:
 	./build-linux-native.sh
 
+# Build a Linux release and bundle it as linux.zip in the project root.
+# This recipe assumes a native Linux environment.
+# This is intended mainly for GitHub Actions, although it can be used elsewhere
+build-linux-bundle-native: build-linux-native
+	cd build/linux/x64/release/bundle
+	zip linux.zip . -r
+	cp build/linux/x64/release/bundle/linux.zip ./linux.zip
+
+# Build a Linux release and bundle it as linux.zip in the project root.
+# This recipe assumes that DOcker is available
+# This is intended mainly for GitHub Actions, although it can be used elsewhere
+build-linux-bundle: build-linux
+	7z a linux.zip .\build\linux\x64\release\bundle\*
+
 #--------------------------------------------------------------------------------
 #
 #   ooooooooooooooooooooooooooooooooooooo
