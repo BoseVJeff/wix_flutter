@@ -6,6 +6,9 @@
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1' />
     <Property Id='DiskPrompt' Value="BoseV's WiX Flutter 1.0 Installation [1]" />
     <Directory Id="TARGETDIR" Name="SourceDir">
+      <!--
+      Using ProgramFilesFolder insted of ProgramFiles64Folder due to warnings emitted as demo'd in ERROR 02
+      -->
       <Directory Id="ProgramFilesFolder" Name="WiX Flutter">
         <Directory Id="BoseV" Name="BoseV">
           <Directory Id="INSTALLDIR" Name="wix_flutter">
@@ -17,12 +20,12 @@
                 <Shortcut Id="Desktop_Main" Directory="DesktopFolder" Name="WiX Flutter" WorkingDirectory="INSTALLDIR" Icon="wix_flutter.exe" IconIndex="0" Advertise="yes"></Shortcut>
               </File>
             </Component>
-            
+
             <!--flutter_windows.dll-->
             <Component Id="FlutterWindowsDll" Guid="{12014936-4EDF-43DF-A0E8-6C65955AF2E4}">
               <File Id="DLL_FlutterWindows" DiskId="1" Source="flutter_windows.dll" KeyPath="yes"></File>
             </Component>
-            
+
             <!--data Folder-->
             <Directory Id="data" Name="data">
               <!--app.so-->
@@ -50,6 +53,9 @@
                 <!--Fonts-->
                 <Directory Id="fonts" Name="fonts">
                   <!--MaterialIcons-Regular.otf-->
+                  <!--
+                  Has warnings as in ERROR 01
+                  -->
                   <Component Id="MaterialIconsRegularOtf" Guid="{74FC467F-A760-444C-8DCE-4BEED2BDAF62}">
                     <File Id="OTF_MaterialIconsRegular" DiskId="1" Source="data\flutter_assets\fonts\MaterialIcons-Regular.otf" KeyPath="yes"></File>
                   </Component>
@@ -57,6 +63,9 @@
                 <!--google_fonts-->
                 <Directory Id="google_fonts" Name="google_fonts">
                   <!--Roboto-Regular.ttf-->
+                  <!--
+                  Has warnings as in ERROR 01
+                  -->
                   <Component Id="RobotoRegularTtf" Guid="{1E6D21CF-1B9D-4BAC-9E19-B5E3E978EDE0}">
                     <File Id="TTF_RobotoRegular" DiskId="1" Source="data\flutter_assets\google_fonts\Roboto-Regular.ttf" KeyPath="yes"></File>
                   </Component>
@@ -68,6 +77,9 @@
                     <!--assets-->
                     <Directory Id="cupertino_icons_assets" Name="assets">
                       <!--CupertinoIcons.ttf-->
+                      <!--
+                      Has warnings as in ERROR 01
+                      -->
                       <Component Id="CupertinoIconsTtf" Guid="{89EFA71B-FA01-4CE6-9734-68A1E2E62D3A}">
                         <File Id="TTF_CupertinoIcons" DiskId="1" Source="data\flutter_assets\packages\cupertino_icons\assets\CupertinoIcons.ttf" KeyPath="yes"></File>
                       </Component>
@@ -114,3 +126,23 @@
     <Icon Id='wix_flutter.exe' SourceFile='wix_flutter.exe'/>
   </Product>
 </Wix>
+
+<!-- ERROR 01:
+$Project Root$build\windows\runner\Release\windows.wxs(54) : warning LGHT1076 : ICE60: The file OTF_MaterialIconsRegular is not a Font, and its version is not a companion file reference. It should have a language specified in the Language column.
+$Project Root$build\windows\runner\Release\windows.wxs(61) : warning LGHT1076 : ICE60: The file TTF_RobotoRegular is not a Font, and its version is not a companion file reference. It should have a language specified in the Language column.
+$Project Root$build\windows\runner\Release\windows.wxs(72) : warning LGHT1076 : ICE60: The file TTF_CupertinoIcons is not a Font, and its version is not a companion file reference. It should have a language specified in the Language column.
+-->
+
+<!-- ERROR 02:
+$Project Root$build\windows\runner\Release\windows.wxs(14) : error LGHT0204 : ICE80: This 32BitComponent MainExecutable uses 64BitDirectory INSTALLDIR
+$Project Root$build\windows\runner\Release\windows.wxs(22) : error LGHT0204 : ICE80: This 32BitComponent FlutterWindowsDll uses 64BitDirectory INSTALLDIR
+$Project Root$build\windows\runner\Release\windows.wxs(29) : error LGHT0204 : ICE80: This 32BitComponent AppSo uses 64BitDirectory data
+$Project Root$build\windows\runner\Release\windows.wxs(33) : error LGHT0204 : ICE80: This 32BitComponent IcudtlDat uses 64BitDirectory data
+$Project Root$build\windows\runner\Release\windows.wxs(39) : error LGHT0204 : ICE80: This 32BitComponent AssetManifestJson uses 64BitDirectory FlutterAssets
+$Project Root$build\windows\runner\Release\windows.wxs(43) : error LGHT0204 : ICE80: This 32BitComponent FontManifestJson uses 64BitDirectory FlutterAssets
+$Project Root$build\windows\runner\Release\windows.wxs(47) : error LGHT0204 : ICE80: This 32BitComponent NoticesZ uses 64BitDirectory FlutterAssets
+$Project Root$build\windows\runner\Release\windows.wxs(53) : error LGHT0204 : ICE80: This 32BitComponent MaterialIconsRegularOtf uses 64BitDirectory fonts
+$Project Root$build\windows\runner\Release\windows.wxs(60) : error LGHT0204 : ICE80: This 32BitComponent RobotoRegularTtf uses 64BitDirectory google_fonts
+$Project Root$build\windows\runner\Release\windows.wxs(71) : error LGHT0204 : ICE80: This 32BitComponent CupertinoIconsTtf uses 64BitDirectory cupertino_icons_assets
+$Project Root$build\windows\runner\Release\windows.wxs(80) : error LGHT0204 : ICE80: This 32BitComponent InkSparkleFrag uses 64BitDirectory shaders
+-->
