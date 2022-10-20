@@ -6,14 +6,18 @@ A Flutter project to test build automation with [Just](https://just.systems/) ([
 
 This project assumes that you are running on a Windows system with the following tools installed and available on your system:
 
-1. `just`
-2. [Powershell](https://learn.microsoft.com/en-us/powershell/) ([Github](https://github.com/PowerShell/PowerShell))
+1. `just` for the task runner
+2. [Powershell](https://learn.microsoft.com/en-us/powershell/) ([Github](https://github.com/PowerShell/PowerShell)) as the shell on Windows. Bash is used on Linux.
 3. [Flutter](https://flutter.dev/) SDK
-4. [Android Studio](https://developer.android.com/studio/) and the corrosponding Android SDK
-5. [Visual Studio](https://visualstudio.microsoft.com/) and the corrosponding Windows SDK
+4. [Android Studio](https://developer.android.com/studio/) and the corrosponding Android SDK for Android builds (.apk, .aab)
+5. [Visual Studio](https://visualstudio.microsoft.com/) and the corrosponding Windows SDK for Windows builds (.exe)
+6. [WiX Toolset](https://wixtoolset.org/) to build Windows installer (.msi). This must ideally be present in PATH, but a local location can also be used provided it is mentioned in the `Justfile`.
 
 	This project is configured for [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/) Community Edition. Using other versions may require additional configuration and adjustments to the `Justfile`.
-6. [Docker](https://www.docker.com/)
+
+	For Linux dependencies, refer to the Dockerfile present alongside this README.
+
+7. [Docker](https://www.docker.com/)
 
 	Docker is used for Linux builds of this project. An active internet connection may be required during runs to build the images required for the builds to run.
 
@@ -27,6 +31,10 @@ In addition, the following tools were used when working on this project:
 	2. [Dart](https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code)
 	3. [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 	4. [just](https://marketplace.visualstudio.com/items?itemName=skellock.just)
+
+2. [Visual Studio 2022](https://visualstudio.microsoft.com/vs/)
+
+	This IDE was mainly used to edit the WiX file
 
 ## About Just
 
