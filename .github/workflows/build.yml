@@ -23,7 +23,7 @@ jobs:
           prerelease: false
 
       - name: Store Release Url
-        run: echo "upload_url=${{ steps.create_release.outputs.upload_url }}" >> $GITHUB_ENV
+        run: echo "release_upload_url=${{ steps.create_release.outputs.upload_url }}" >> $GITHUB_ENV
 
   build-exe:
     name: Build and Upload Windows Release Asset
@@ -87,7 +87,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ env.upload_url }}
+          upload_url: ${{ env.release_upload_url }}
           asset_path: ./windows.zip
           asset_name: wix_flutter.zip
           asset_content_type: application/zip
@@ -98,7 +98,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ env.upload_url }}
+          upload_url: ${{ env.release_upload_url }}
           asset_path: ./windows.msi
           asset_name: wix_flutter.msi
           asset_content_type: application/octet-stream # Using a binary catch-all as outlined here: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
@@ -156,7 +156,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ env.upload_url }}
+          upload_url: ${{ env.release_upload_url }}
           asset_path: build/linux/x64/release/bundle/linux.zip
           asset_name: wix_flutter_linux.zip
           asset_content_type: application/zip
@@ -167,7 +167,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ env.upload_url }}
+          upload_url: ${{ env.release_upload_url }}
           asset_path: ./build/app/outputs/flutter-apk/app-release.apk
           asset_name: wix_flutter.apk
           asset_content_type: application/zip
@@ -178,7 +178,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ env.upload_url }}
+          upload_url: ${{ env.release_upload_url }}
           asset_path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
           asset_name: wix_flutter-arm64.apk
           asset_content_type: application/zip
@@ -189,7 +189,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ env.upload_url }}
+          upload_url: ${{ env.release_upload_url }}
           asset_path: ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
           asset_name: wix_flutter-armeabi.apk
           asset_content_type: application/zip
@@ -200,7 +200,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ env.upload_url }}
+          upload_url: ${{ env.release_upload_url }}
           asset_path: ./build/app/outputs/flutter-apk/app-x86_64-release.apk
           asset_name: wix_flutter-x86_64.apk
           asset_content_type: application/zip
