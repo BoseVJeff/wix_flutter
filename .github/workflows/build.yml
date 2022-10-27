@@ -23,7 +23,7 @@ jobs:
           prerelease: false
 
       - name: Store Release Url
-        run: echo "upload_url=${{steps.create_release.outputs.upload_url}}" >> $GITHUB_ENV
+        run: echo "upload_url=${{ steps.create_release.outputs.upload_url }}" >> $GITHUB_ENV
 
   build-exe:
     name: Build and Upload Windows Release Asset
