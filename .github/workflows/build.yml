@@ -11,7 +11,7 @@ jobs:
     name: Create GitHub Release
     runs-on: ubuntu-latest
     outputs:
-      release-upload-url: ${{ upload_url }}
+      release-upload-url: ${{ steps.create_release.outputs.upload_url }}
     steps:
       - name: Create Release
         id: create_release
