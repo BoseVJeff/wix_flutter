@@ -70,7 +70,7 @@ jobs:
           if(Test-Path .\msi-temp) {rm -r .\msi-temp}
           mkdir msi-temp
           cp .\build\windows\runner\Release\* .\msi-temp -r
-          cd .\msi-temp\ && C:\Program Files (x86)\WiX Toolset v3.11\bin\candle.exe windows.wxs && C:\Program Files (x86)\WiX Toolset v3.11\bin\light.exe -ext WixUIExtension windows.wixobj
+          cd .\msi-temp\ && "C:\Program Files (x86)\WiX Toolset v3.11\bin\candle.exe" windows.wxs && "C:\Program Files (x86)\WiX Toolset v3.11\bin\light.exe" -ext WixUIExtension windows.wixobj
           cp .\msi-temp\windows.msi .\windows.msi
           rm -r .\msi-temp
 
