@@ -152,6 +152,22 @@ zip-exe-bundle:
 # Depends on 7Zip being available in PATH, which is true for Github-hosted Windows runners.
 build-exe-bundle: build-exe zip-exe-bundle
 
+# Build the .msi installer using the WiX Toolset
+# Assumes that `candle.exe` and `light.exe` are both available in the current shell, either via PATH or otherwise
+# Resulting `windows.msi` is available in the project root
+build-msi-from-build:
+	if(Test-Path .\msi-temp) {rm -r .\msi-temp}
+	mkdir msi-temp
+	cp .\build\windows\runner\Release\* .\msi-temp -r
+	cd .\msi-temp\ && candle windows.wxs && light -ext WixUIExtension windows.wixobj
+	cp .\msi-temp\windows.msi .\windows.msi
+	rm -r .\msi-temp
+
+build-msi: build-exe build-msi-from-build
+
+# Build .msi installer for GitHub releases
+build-gh-msi: build-gh-exe build-msi-from-build
+
 #--------------------------------------------------------------------------------
 
 #                  _           _     _
