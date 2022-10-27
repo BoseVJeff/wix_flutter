@@ -27,13 +27,13 @@ jobs:
         uses: flutter-actions/setup-flutter@v2.2
         with:
           # The version to install: Default: 3.0.2
-          version: 3.3.4
+          version: 3.3.6
           # The version to install. Default: stable
           channel: stable
           # Cache the installed Flutter SDK. Default: false
           cache: true
           # An explicit key for restoring and saving the Flutter SDK to/from cache
-          cache-key: flutter-3.3.4
+          cache-key: flutter-3.3.6
       
       - name: Download development binaries
         run: flutter doctor -v
