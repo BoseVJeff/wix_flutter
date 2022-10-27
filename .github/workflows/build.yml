@@ -34,8 +34,13 @@ jobs:
           cache: true
           # An explicit key for restoring and saving the Flutter SDK to/from cache
           cache-key: flutter-3.3.4
+      
       - name: Download development binaries
         run: flutter doctor -v
+        
+      - name: Other Platform Setup
+        # Adding WiX Toolset to PATH to build .msi installer
+        run: $env:Path += ";C:\Program Files (x86)\WiX Toolset v3.11\bin"
 
       - name: Checkout code
         uses: actions/checkout@v2
