@@ -159,7 +159,7 @@ build-msi-from-build:
 	if(Test-Path .\msi-temp) {rm -r .\msi-temp}
 	mkdir msi-temp
 	cp .\build\windows\runner\Release\* .\msi-temp -r
-	cd .\msi-temp\ && candle windows.wxs && light -ext WixUIExtension windows.wixobj
+	cd .\msi-temp\ && candle.exe windows.wxs && light.exe -ext WixUIExtension windows.wixobj
 	cp .\msi-temp\windows.msi .\windows.msi
 	rm -r .\msi-temp
 
