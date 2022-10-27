@@ -67,7 +67,7 @@ jobs:
 
       - name: Build Windows installer release
         run: |
-          just build-exe
+          just build-gh-exe
           if(Test-Path .\msi-temp) {rm -r .\msi-temp}
           mkdir msi-temp
           cp .\build\windows\runner\Release\* .\msi-temp -r
