@@ -109,21 +109,60 @@
       </Directory>
       <Directory Id='DesktopFolder' Name='Desktop'></Directory>
     </Directory>
-    <Feature Id='Complete' Level='1'>
-      <ComponentRef Id='MainExecutable'/>
-      <ComponentRef Id='FlutterWindowsDll'/>
-      <ComponentRef Id='AppSo'/>
-      <ComponentRef Id='IcudtlDat'/>
-      <ComponentRef Id='AssetManifestJson'/>
-      <ComponentRef Id='FontManifestJson'/>
-      <ComponentRef Id='NoticesZ'/>
-      <ComponentRef Id='MaterialIconsRegularOtf'/>
-      <ComponentRef Id='RobotoRegularTtf'/>
-      <ComponentRef Id='CupertinoIconsTtf'/>
-      <ComponentRef Id='InkSparkleFrag'/>
-      <ComponentRef Id='ProgramMenuDir'/>
-    </Feature>
+    <!--
+    The presence of the ConfigurableDirectory key here ensures that the user can change the Install Directory.
+      -->
+    <!--<Feature Id='Complete' Level='1' Title='WiX Flutter Complete' Description='Install Everything' Display='expand' ConfigurableDirectory='INSTALLDIR'>-->
+      <!-- Nesting features as was done previously makes the Uninstall button disappear for the Start Menu entry. -->
+      <!--
+      **********************************************************
+      The features installed are determined by the install level (of type signed int16) of the installer. e.g. If install level is 5, all non-zero positive level features upto and including level 5 will be installed.
+      Typically, the follwing levels are used:
+      Slim Install (Mandatory Features only): Level=1
+      Typical Install : Level=3
+      Complete Install : Level=1000
+      **********************************************************
+      Setting AllowAdvertise=no disables Install-on-Demand for the feature. Disabling here as missing components in the main component may lead to unforseen circumstances.
+        -->
+       <Feature Id='Minimal' Level='1' Title='WiX Flutter Complete' Description='Install Everything' Display='expand' ConfigurableDirectory='INSTALLDIR' AllowAdvertise='no'>
+        <ComponentRef Id='MainExecutable'/>
+        <ComponentRef Id='FlutterWindowsDll'/>
+        <ComponentRef Id='AppSo'/>
+        <ComponentRef Id='IcudtlDat'/>
+        <ComponentRef Id='AssetManifestJson'/>
+        <ComponentRef Id='FontManifestJson'/>
+        <ComponentRef Id='NoticesZ'/>
+        <ComponentRef Id='MaterialIconsRegularOtf'/>
+        <ComponentRef Id='RobotoRegularTtf'/>
+        <ComponentRef Id='CupertinoIconsTtf'/>
+        <ComponentRef Id='InkSparkleFrag'/>
+        <ComponentRef Id='ProgramMenuDir'/>
+      </Feature>
+      <!--
+    Do not leave features empty due to the bug as outlined on this page: https://www.firegiant.com/wix/tutorial/user-interface/custom-settings/
+    Summary:
+    * There seems to be a bug in Windows Installer. With features having no files inside, this entry will appear in the context menu even if you use the attributes outlined above to remove it. In this case, add an empty component (with no files inside) to the feature.
+    -->
+      <!--<Feature Id='Documentation' Title='Description' Description='The instruction manual' Level='1000'></Feature>-->
+    <!--</Feature>-->
     <Icon Id='wix_flutter.exe' SourceFile='wix_flutter.exe'/>
+    <!--
+    Adding Installer UI
+    **************************************************************************
+    Possible installer UIs can be set by changing the Id key in UIRef. For possible values, see https://www.firegiant.com/wix/tutorial/user-interface/ui-wizardry/
+    Summary:
+    WixUI_Mondo offers the complete interface, welcome page, license agreement, setup type (typical, custom and complete), allows for feature customization, browsing for the target directory and offers disk costing. Maintenance mode dialogs are also included. You should use this flavor when some of your product's features shouldn't be installed by default (in other words, there is a significant and meaningful difference between typical and complete installs).
+    WixUI_FeatureTree is similar to the full set but it doesn't allow the user to chose between setup types. It always assumes Custom and goes directly to the feature customization dialog after the user has accepted the license agreement.
+    WixUI_InstallDir allows the user to select a destination directory but without presenting the usual customized features page. After having selected the directory, the installation will proceed automatically*.
+    WixUI_Minimal features a simplistic user interface with a single dialog combining the welcome and license agreement pages. After that, the installation goes on automatically without allowing the user to customize anything. Use it when your application has no optional features to install.
+    WixUI_Advanced is rather similar to WixUI_Minimal as it offers a simple, one-click install but it also allows selecting features and folders if the user chooses to do so.
+    *Note that if you use the WixUI_InstallDir dialog set, you'll have to provide an extra property somewhere in your source:
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    **************************************************************************
+    The second UIRef includes localised/modified error and progress texts, replacing the stock messages. Increases the package size by a small amount.
+    -->
+    <UIRef Id='WixUI_Mondo'/>
+    <UIRef Id='WixUI_ErrorProgressText'/>
   </Product>
 </Wix>
 
