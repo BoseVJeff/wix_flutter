@@ -10,8 +10,6 @@ jobs:
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
-    outputs:
-      release-upload-url: ${{ steps.create_release.outputs.upload_url }}
     steps:
       - name: Create Release
         id: create_release
@@ -26,7 +24,7 @@ jobs:
           prerelease: false
 
       - name: Store Release Url
-        run: echo "release_upload_url=${{ steps.create_release.outputs.release-upload-url }}" >> $GITHUB_ENV
+        run: echo "release_upload_url=${{ steps.create_release.outputs.upload_url }}" >> $GITHUB_ENV
 
   build-exe:
     name: Build and Upload Windows Release Asset
