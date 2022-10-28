@@ -21,6 +21,10 @@ This project assumes that you are running on a Windows system with the following
 
 	Docker is used for Linux builds of this project. An active internet connection may be required during runs to build the images required for the builds to run.
 
+8. [WiX Toolset](https://wixtoolset.org/)
+
+	The WiX Toolset is used to generate `.msi` installers for the Windows builds of this project.
+
 In addition, the following tools were used when working on this project:
 
 1. [Visual Studio Code](https://code.visualstudio.com/)
@@ -34,7 +38,11 @@ In addition, the following tools were used when working on this project:
 
 2. [Visual Studio 2022](https://visualstudio.microsoft.com/vs/)
 
-	This IDE was mainly used to edit the WiX file
+	This IDE was mainly used to edit the WiX file (`.wxs`) that is used to generate the `.msi` installer of the Windows builds of this project. The follwing plugin were used for this purpose:
+
+	1. [Wix Toolset Visual Studio 2022 Extension](https://marketplace.visualstudio.com/items?itemName=WixToolset.WixToolsetVisualStudio2022Extension)
+
+		For autocomplete, syntax highlighting and other IDE features for `.wxs` files
 
 ## About Just
 
@@ -55,6 +63,11 @@ All build outputs will be in the `/build` folder. All builds are completely port
 	just build-exe
 	```
 	The entire `/build/windows/runner/Release` folder can be zipped and shipped for use.
+
+	If an installer is desired, use
+	```
+	just build-msi
+	```
 
 3. Android:
 	```
@@ -101,6 +114,7 @@ All build outputs will be in the `/build` folder. All builds are completely port
 
 	* `/build/app/outputs/flutter-apk` for Android builds
 	* `/build/windows/runner/Release` for Windows builds
+	* `windows.msi` for installers of the Windows builds
 	* `/build/linux/release/bundle` for Linux builds
 	* `/build/web` for Flutter Web builds
 
@@ -132,6 +146,10 @@ The major files of significance are:
 
 	Currently, there are no recipe to build Snaps and Flatpaks.
 
+3. `windows.wxs`
+
+	This is the file used to generate the `.msi` installer for Windows builds of this project. The entire file is plain XML with comments and so can be edited with any compatible editor. For auto-complete and other comforts, use Visual Studio (2022 Community Edition used for this project) with the Wix Toolset Visual Studio Extension for your version of Visual Studio.
+
 Other changes:
 
 1. Added `/lib/build_runner_test/` and related dependencies
@@ -156,6 +174,6 @@ Other changes:
 
 ## Potential Future Recipes
 
-Recipes to build Snap, AppImage, Flatpak, MSI, MSIX, etc.
+Recipes to build Snap, AppImage, Flatpak, MSIX, etc.
 
 Automatic builds using Github Actions or something similar.
