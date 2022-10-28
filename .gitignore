@@ -58,3 +58,9 @@ app.*.map.json
 
 # Artifacts generated from testing build recipes meant for Github Actions
 *.zip
+
+# Other files genreated during the build process
+/msi-temp
+
+windows.bak.wxs
+windows.msi
