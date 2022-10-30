@@ -146,9 +146,9 @@ The major files of significance are:
 
 	Currently, there are no recipe to build Snaps and Flatpaks.
 
-3. `windows.wxs`
+3. `windows.wxs` and other files in the `msi` folder
 
-	This is the file used to generate the `.msi` installer for Windows builds of this project. The entire file is plain XML with comments and so can be edited with any compatible editor. For auto-complete and other comforts, use Visual Studio (2022 Community Edition used for this project) with the Wix Toolset Visual Studio Extension for your version of Visual Studio.
+	These are the files used to generate the `.msi` installer for Windows builds of this project. The entire `windows.wxs` file is plain XML with comments and so can be edited with any compatible editor. For auto-complete and other comforts, use Visual Studio (2022 Community Edition used for this project) with the Wix Toolset Visual Studio Extension for your version of Visual Studio.
 
 Other changes:
 
