@@ -150,9 +150,13 @@ The major files of significance are:
 
 	These are the files used to generate the `.msi` installer for Windows builds of this project. The entire `windows.wxs` file is plain XML with comments and so can be edited with any compatible editor. For auto-complete and other comforts, use Visual Studio (2022 Community Edition used for this project) with the Wix Toolset Visual Studio Extension for your version of Visual Studio.
 
-	To customise the installer, modify the files in the `msi\assets` folder while retaining the existing file formats/extensions. If `License.rtf` needs to be edited, preferably use something like `WordPad` for the purpose.
+	To customise the installer, modify the files in the `msi\assets` folder while retaining the existing file formats/extensions. If `License.rtf` needs to be edited, preferably use something like `WordPad` for the purpose. The provided files use a custom backgorund color to show the extent to which the image is used in the UI.
 
-	To view the default files used, see [this part](https://github.com/wixtoolset/wix3/tree/develop/src/ext/UIExtension/wixlib/Bitmaps) of the [source on Github](https://github.com/wixtoolset/wix3).
+	To view the default bitmaps used, see [this part](https://github.com/wixtoolset/wix3/tree/develop/src/ext/UIExtension/wixlib/Bitmaps) of the [source on Github](https://github.com/wixtoolset/wix3). For completion purposes, the default files are provided. The files are as follows:
+
+	1. `dlgbmp.bmp`: Default for `dialog.bmp`
+	2. `bannrbmp.bmp`: Default for `banner.bmp`
+	3. `Licensertf.rtf`: Default for `License.rtf`
 
 Other changes:
 
