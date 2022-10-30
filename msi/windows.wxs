@@ -8,6 +8,8 @@
     <WixVariable Id="WixUILicenseRtf" Value="assets\License.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="assets\banner.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="assets\dialog.bmp" />
+    <Icon Id="cpl_app_icon.ico" SourceFile="assets\app_icon.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="cpl_app_icon.ico"></Property>
     <Directory Id="TARGETDIR" Name="SourceDir">
       <!--
       Using ProgramFilesFolder insted of ProgramFiles64Folder due to warnings emitted as demo'd in ERROR 02

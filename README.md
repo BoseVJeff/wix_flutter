@@ -158,6 +158,8 @@ The major files of significance are:
 	2. `bannrbmp.bmp`: Default for `banner.bmp`
 	3. `Licensertf.rtf`: Default for `License.rtf`
 
+	The `app_icon.ico` file has been copied from `windows\runner\resources\app_icon.ico`. The two files should preferably be kept in sync. This is used in places like `Control Panel` or the `Add or Remove Programs` section of the `Settings` app.
+
 Other changes:
 
 1. Added `/lib/build_runner_test/` and related dependencies
