@@ -152,6 +152,8 @@ The major files of significance are:
 
 	To customise the installer, modify the files in the `msi\assets` folder while retaining the existing file formats/extensions. If `License.rtf` needs to be edited, preferably use something like `WordPad` for the purpose.
 
+	To view the default files used, see [this part](https://github.com/wixtoolset/wix3/tree/develop/src/ext/UIExtension/wixlib/Bitmaps) of the [source on Github](https://github.com/wixtoolset/wix3).
+
 Other changes:
 
 1. Added `/lib/build_runner_test/` and related dependencies
