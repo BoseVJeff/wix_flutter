@@ -165,7 +165,7 @@ build-msi-from-build:
 	mkdir msi-temp
 	cp .\build\windows\runner\Release\* .\msi-temp -r
 	cp .\msi\windows.wxs .\msi-temp
-	cd .\msi-temp\ && candle msi\windows.wxs && light -ext WixUIExtension windows.wixobj
+	cd .\msi-temp\ && candle windows.wxs && light -ext WixUIExtension windows.wixobj
 	cp .\msi-temp\windows.msi .\windows.msi
 	rm -r .\msi-temp
 
