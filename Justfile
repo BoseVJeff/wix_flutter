@@ -160,6 +160,7 @@ build-exe-bundle: build-exe zip-exe-bundle
 # Build the .msi installer using the WiX Toolset
 # Assumes that `candle.exe` and `light.exe` are both available in the current shell, either via PATH or otherwise
 # Resulting `windows.msi` is available in the project root
+# Add `-sice:ICE07` to the `light` command below to silence the Fonts warning. It can be safely ignored otherwise as the app loads its own fonts.
 build-msi-from-build:
 	if(Test-Path .\msi-temp) {rm -r .\msi-temp}
 	mkdir msi-temp
