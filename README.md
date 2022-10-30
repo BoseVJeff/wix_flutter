@@ -150,6 +150,8 @@ The major files of significance are:
 
 	These are the files used to generate the `.msi` installer for Windows builds of this project. The entire `windows.wxs` file is plain XML with comments and so can be edited with any compatible editor. For auto-complete and other comforts, use Visual Studio (2022 Community Edition used for this project) with the Wix Toolset Visual Studio Extension for your version of Visual Studio.
 
+	To customise the installer, modify the files in the `msi\assets` folder while retaining the existing file formats/extensions. If `License.rtf` needs to be edited, preferably use something like `WordPad` for the purpose.
+
 Other changes:
 
 1. Added `/lib/build_runner_test/` and related dependencies
