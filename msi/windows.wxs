@@ -5,6 +5,9 @@
     <Package Id="*" Keywords="Installer" Description="BoseV's Installer for the wix_flutter project" Comments="For more info, visit https://www.github.com/bosevjeff/wix_flutter" InstallerVersion="200" Compressed="yes" SummaryCodepage="1252"/>
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1' />
     <Property Id='DiskPrompt' Value="BoseV's WiX Flutter 1.0 Installation [1]" />
+    <WixVariable Id="WixUILicenseRtf" Value="assets\License.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="assets\banner.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="assets\dialog.bmp" />
     <Directory Id="TARGETDIR" Name="SourceDir">
       <!--
       Using ProgramFilesFolder insted of ProgramFiles64Folder due to warnings emitted as demo'd in ERROR 02
