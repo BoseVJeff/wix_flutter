@@ -187,3 +187,31 @@ Other changes:
 Recipes to build Snap, AppImage, Flatpak, MSIX, etc.
 
 Automatic builds using Github Actions or something similar.
+
+## Notes
+
+* Errors during modifying/uninstalling the application
+
+	When uninstalling the application, under certain circumstances (incomplete repair, etc) an error may be thrown along the lines of
+
+		The setup must update files or services that cannot be updated while the system is running. If you choose to continue, a reboot will be required to complete the setup.
+
+	in a dialog, or as follows in the system logs if available
+
+		Detected that application with id <*id*>, friendly name 'System', of type RmCritical and status <*n*> holds file[s] in use.
+
+	If an error along these lines is encountered, check if the uninstall was actually successfull. The default install directory for the app is `C:\Program Files (x86)\BoseV\wix_flutter`.
+
+	* If the `BoseV` directory *doesnot* exist, the application has mst likely been successfully uninstalled. Further confirmation may be obtained by confirming the absence of a Key in the Windows Registry at the path `HKEY_CURRENT_USER\BoseV\wix_flutter`.
+
+		In this situation, *all* subsequent installs *will* show the same experience. This is usually due to system permissions getting confused and persisting accross installs for some reason. The messages may be ignored, but for a proper resolution, follow the following steps:
+
+		0. **Optional:** To enable installer logging on your system, create a Registry Key at `HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Installer` and add a new `String` entry with the name `Logging` and value `voicewarmupx`. Logs will be stored in `%temp%` (resolves to `C:\Users\user\AppData\Local\Temp` in my experience) with a random name starting with `MSI` and with the `.LOG` extension. **Disable** this after use by deleting the key as this *will* affect system performance and logs may also consume large amounts of system storage. For more documentaion, see [this portion of the Windows documentaion](https://learn.microsoft.com/en-GB/troubleshoot/windows-client/application-management/enable-windows-installer-logging)
+
+		1. To identify the problematic files, naviagte, in the registry, to `HKEY_CURRENT_USER\Software\Microsoft\RestarManager\Session0000`. The value of the `RegFiles0000` element should contain the names and paths of the files that are causing the problem. If multiple files are causing the issue, the element should contain all of their paths. Source: [Advanced Installer forums](https://advancedinstaller.com/forums/viewtopic.php?f=7&t=49863)
+
+		2. Delete the problematic file(s) manually. Using Safe Mode is reccomended for this purpose as that avoids all of the complications regarding permissions that spawned this preblem in the first place.
+
+		3. Either uninstall-reinstall or repair the existing installation using the Repair option in the Control Panel. Verify that the application functions well.
+
+	* If the directory *does* have files remaining, go into Safe Mode and remove those files. Then restart and rerun the uninstaller from the Control Panel / Settings app if the app entry still exists there.
