@@ -60,6 +60,8 @@
                   <!--MaterialIcons-Regular.otf-->
                   <!--
                   Has warnings as in ERROR 01
+
+                  Donot set TrueType=yes as that causes the follwong error to occour: The setup must update files or services that cannot be updated while the system is running. If you choose to continue, a reboot will be required to complete the setup.
                   Set TrueType=yes for TTC\TTF\OTF fonts and omit FontTitle
                   -->
                   <Component Id="MaterialIconsRegularOtf" Guid="{74FC467F-A760-444C-8DCE-4BEED2BDAF62}">
