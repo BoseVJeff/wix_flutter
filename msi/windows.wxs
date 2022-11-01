@@ -63,7 +63,7 @@
                   Set TrueType=yes for TTC\TTF\OTF fonts and omit FontTitle
                   -->
                   <Component Id="MaterialIconsRegularOtf" Guid="{74FC467F-A760-444C-8DCE-4BEED2BDAF62}">
-                    <File Id="OTF_MaterialIconsRegular" DiskId="1" Source="data\flutter_assets\fonts\MaterialIcons-Regular.otf" KeyPath="yes" TrueType="yes"></File>
+                    <File Id="OTF_MaterialIconsRegular" DiskId="1" Source="data\flutter_assets\fonts\MaterialIcons-Regular.otf" KeyPath="yes"></File>
                   </Component>
                 </Directory>
                 <!--google_fonts-->
@@ -73,7 +73,7 @@
                   Has warnings as in ERROR 01
                   -->
                   <Component Id="RobotoRegularTtf" Guid="{1E6D21CF-1B9D-4BAC-9E19-B5E3E978EDE0}">
-                    <File Id="TTF_RobotoRegular" DiskId="1" Source="data\flutter_assets\google_fonts\Roboto-Regular.ttf" KeyPath="yes" TrueType="yes"></File>
+                    <File Id="TTF_RobotoRegular" DiskId="1" Source="data\flutter_assets\google_fonts\Roboto-Regular.ttf" KeyPath="yes"></File>
                   </Component>
                 </Directory>
                 <!--packages-->
@@ -87,7 +87,7 @@
                       Has warnings as in ERROR 01
                       -->
                       <Component Id="CupertinoIconsTtf" Guid="{89EFA71B-FA01-4CE6-9734-68A1E2E62D3A}">
-                        <File Id="TTF_CupertinoIcons" DiskId="1" Source="data\flutter_assets\packages\cupertino_icons\assets\CupertinoIcons.ttf" KeyPath="yes" TrueType="yes"></File>
+                        <File Id="TTF_CupertinoIcons" DiskId="1" Source="data\flutter_assets\packages\cupertino_icons\assets\CupertinoIcons.ttf" KeyPath="yes"></File>
                       </Component>
                     </Directory>
                   </Directory>
